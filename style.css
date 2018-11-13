@@ -1,0 +1,64 @@
+@font-face {
+    font-family: Xarrow;
+    src: url("./res/xarrowFont.otf");
+}
+
+h1 {
+    font: 6rem Xarrow;
+}
+
+/*helpers*/
+.text-center {
+    text-align: center;
+}
+
+.no-select {
+    user-select: none;
+}
+
+.btn-primary {
+    display: block;
+    font: 3rem Xarrow;
+    border: none;
+    margin: 0 auto;
+    background: none;
+}
+
+.btn-primary:focus {
+    outline: none;
+}
+
+.btn-primary:hover {
+    color: green;
+}
+
+/*grid*/
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.row.col-1 {
+    flex-basis: 16.6666667%;
+}
+
+.row.col-2 {
+    flex-basis: 33.3333334%;
+}
+
+.row.col-3 {
+    flex-basis: 50.0000001%;
+}
+
+.row.col-4 {
+    flex-basis: 66.6666668%;
+}
+
+.row.col-5 {
+    flex-basis: 83.3333335%;
+}
+
+.row.col-6 {
+    flex-basis: 100%;
+}

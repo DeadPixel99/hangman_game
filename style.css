@@ -3,8 +3,53 @@
     src: url("./res/xarrowFont.otf");
 }
 
+@keyframes fly-out {
+    from {transform: translateY(0)}
+    to {transform: translateY(-300px)}
+}
+
+@keyframes fly-in {
+    from {transform: translateY(-300px)}
+    to {transform: translateY(0px)}
+}
+
+
+@keyframes fly-out-side {
+    from {transform: translateX(0); }
+    to {transform: translateX(-2500px); }
+}
+
+@keyframes fly-in-side {
+    from {transform: translateX(-2500px); }
+    to {transform: translateX(0px); }
+}
+
+@keyframes move-gallows {
+    from {flex-basis: 100%}
+    to {flex-basis: 33.3333334%}
+}
+
+@keyframes appear {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
 h1 {
     font: 6rem Xarrow;
+}
+
+h3 {
+    font: 3rem Xarrow;
+}
+
+button {
+    border: none;
+    background: none;
+    user-select: none;
+}
+
+button:focus {
+    outline: none;
 }
 
 /*helpers*/
@@ -16,20 +61,62 @@ h1 {
     user-select: none;
 }
 
-.btn-primary {
-    display: block;
-    font: 3rem Xarrow;
-    border: none;
-    margin: 0 auto;
-    background: none;
+.btn-wrong {
+    color: red;
 }
 
-.btn-primary:focus {
-    outline: none;
+.pop-up {
+    position: absolute;
+    width: 50vw;
+    height: 10vh;
 }
+
+.hide-header {
+    animation: fly-out 1s;
+    transform: translateY(-300px);
+}
+
+
+.show-header {
+    animation: fly-in 1s;
+    transform: translateY(0);
+}
+
+.hide-game-content {
+    animation: fly-out-side 1s;
+    transform: translateX(-2500px);
+}
+
+
+.show-game-content {
+    animation: fly-in-side 1s;
+    transform: translateX(0);
+}
+
+
+
+.btn-primary {
+    font: 3rem Xarrow;
+}
+
+.btn-primary.play {
+    display: block;
+    margin: 0 auto;
+}
+
+
 
 .btn-primary:hover {
     color: green;
+    cursor: pointer;
+}
+
+.btn-letter {
+    font: 5rem Xarrow;
+}
+
+.keyboard {
+    animation: appear 2s;
 }
 
 /*grid*/
@@ -39,26 +126,26 @@ h1 {
     flex-wrap: wrap;
 }
 
-.row.col-1 {
+.row .col-1 {
     flex-basis: 16.6666667%;
 }
 
-.row.col-2 {
+.row .col-2 {
     flex-basis: 33.3333334%;
 }
 
-.row.col-3 {
+.row .col-3 {
     flex-basis: 50.0000001%;
 }
 
-.row.col-4 {
+.row .col-4 {
     flex-basis: 66.6666668%;
 }
 
-.row.col-5 {
+.row .col-5 {
     flex-basis: 83.3333335%;
 }
 
-.row.col-6 {
+.row .col-6 {
     flex-basis: 100%;
 }

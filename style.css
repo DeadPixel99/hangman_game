@@ -8,6 +8,7 @@
     to {transform: translateY(-300px)}
 }
 
+
 @keyframes fly-in {
     from {transform: translateY(-300px)}
     to {transform: translateY(0px)}
@@ -45,16 +46,16 @@
 
 * {
     user-select: none;
+    -moz-user-select: none;
 }
 
 h1 {
-    font: 4rem Xarrow;
+    font: 4rem Xarrow, Comic Sans MS;
 }
 
 button {
     border: none;
     background: none;
-    user-select: none;
 }
 
 button:focus {
@@ -67,7 +68,7 @@ button:focus {
 }
 
 .btn-wrong {
-    font: 5rem Xarrow;
+    font: 5rem Xarrow, Comic Sans MS;
     color: red;
 }
 
@@ -110,7 +111,7 @@ button:focus {
 }
 
 .btn-primary {
-    font: 5rem Xarrow;
+    font: 5rem Xarrow, Comic Sans MS;
 }
 
 .btn-primary.play {
@@ -150,8 +151,8 @@ button:focus {
     opacity: 0;
 }
 
-
-@media screen and (max-width: 575px){
+/*for phones & small-screen devices*/
+@media screen and (max-width: 980px){
 
     @keyframes move-gallows {}
 
@@ -166,7 +167,6 @@ button:focus {
 
     .flex-half, .flex-third {
         flex-basis: 100% !important;
-
     }
 
     .btn-primary {
@@ -178,8 +178,8 @@ button:focus {
     }
 
     svg {
-        max-width: 100%;
-        height: 60%;
+        width: auto;
+        max-height: 40vh;
     }
 
 }

@@ -1,9 +1,9 @@
 (function (w, d) {
 
-    const hangman = new Hangman();
     const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
         'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
         'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    const hangman = new Hangman();
 
     let init = setInterval(()=>{
         if(hangman.invoke() == 7) {
@@ -25,14 +25,15 @@
     function inGame(wordsData, hangmanObj) {
         const textBox = d.querySelector('.game-logo');
         const gameContainer = d.querySelector('.game-container');
-
         let words = wordsData;
         let category = '';
+        let wishedWord = '';
         let hangman = hangmanObj;
-        let wishedWord = [];
+        let lettersToRecognise = [];
         let userWord = [];
         let inputAllowed = true;
         let keys = getKeyboard(tryLetter);
+        let gameScore = 0;
 
         hangman.clearBody();
         keys.classList.add('flex-half', 'keyboard');
@@ -41,40 +42,43 @@
 
 
         function guessWord() {
-            [category, wishedWord] = getRandomWord(words);
-            userWord = Array(wishedWord.length).fill('_');
-            [userWord[0], userWord[userWord.length-1]] = [wishedWord.splice(0,1,''), wishedWord.splice(-1,1,'')];
-            [wishedWord[0], wishedWord[wishedWord.length-1]] = ['', ''];
+            [category, lettersToRecognise] = getRandomWord(words);
+            userWord = Array(lettersToRecognise.length).fill('_');
+            wishedWord = lettersToRecognise.join('');
+            [userWord[0], userWord[userWord.length-1]] = [lettersToRecognise.splice(0,1,''), lettersToRecognise.splice(-1,1,'')];
             setWord();
         }
 
 
-        function tryLetter(letter) {
+        function tryLetter(letter, recursive) {
             if(!inputAllowed) return;
 
-            let index = wishedWord.indexOf(letter.innerText);
+            let index = lettersToRecognise.indexOf(letter.innerText);
             if(index != -1) {
                 userWord[index] = letter.innerText;
                 textBox.innerText = `Word(${category}):\n ${userWord.join(' ')}`;
-                wishedWord[index] = '';
+                lettersToRecognise[index] = '';
                 if(userWord.indexOf('_') == -1) {
-                    reset('Congrats. You win this time. Let\'s try again?');
+                    reset(`Congrats, you won! Right word is ${wishedWord}, but next time it'll be harder.\n\nScore: ${++gameScore}`);
                 }
+                tryLetter(letter, true);
             } else {
                 classReplace(letter, 'btn-primary', 'btn-wrong');
                 letter.onclick = null;
-                hangman.invoke();
-                if(hangman.currentStep > 5) {
-                    reset('Ups. Looks like you loose. Try again');
+                if(!recursive) {
+                    if(hangman.invoke() > 5) {
+                        reset(`Ups. Looks like you loose. Word was ${wishedWord}. Is it really that hard?\n\nScore: ${gameScore}`);
+                        gameScore = 0;
+                    }
                 }
             }
         }
 
 
-        function setWord(preset) {
+        function setWord() {
             classReplace(textBox, 'show-header', 'hide-header');
             setTimeout(()=>{
-                textBox.innerText = (preset)? preset : `Word(${category}):\n ${userWord.join(' ')}`;
+                textBox.innerText = `Word(${category}):\n ${userWord.join(' ')}`;
                 classReplace(textBox, 'hide-header', 'show-header');
             }, 1000);
         }
@@ -152,15 +156,15 @@
         d.body.appendChild(popUp);
         if(!endless) {
             setTimeout(()=>{ classReplace(popUp, '', 'hide') }, 5000);
-            setTimeout(()=>{ document.body.removeChild(popUp)}, 6000);
+            setTimeout(()=>{ d.body.removeChild(popUp)}, 6000);
         }
     }
 
+
     //drawable prop
     function Hangman() {
-        let gallows = document.querySelector('svg').children;
-
-        this.currentStep = 0;
+        let gallows = d.querySelector('svg').children;
+        let currentStep = 0;
 
         this.drawHead = function () {
             classReplace(gallows[1], 'invisible');
@@ -187,14 +191,14 @@
         };
 
         this.clearBody = function () {
-            this.currentStep = 0;
+            currentStep = 0;
             for(let i = 1; i < gallows.length; i++) {
-                gallows[i].classList.add('invisible');
+                classReplace(gallows[i], '', 'invisible');
             }
         };
 
         this.invoke = function () {
-            switch (this.currentStep) {
+            switch (currentStep) {
                 case 0: {this.drawHead(); break;}
                 case 1: {this.drawBody(); break;}
                 case 2: {this.drawHand(); break;}
@@ -202,7 +206,7 @@
                 case 4: {this.drawLeg(); break;}
                 case 5: {this.drawLeg(true); break;}
             }
-            return ++this.currentStep;
+            return ++currentStep;
         }
     }
 

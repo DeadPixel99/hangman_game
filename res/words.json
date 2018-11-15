@@ -1,5 +1,8 @@
 {
-  "fruits":["apple", "banana", "pineapple"],
-  "IT brands":["intel", "amd", "microsoft", "asus", "nvidia"],
-  "Countries":["japan", "ukraine", "poland", "china", "russia"]
+  "fruits":["apple", "banana", "pineapple", "grapefruit", "lemon", "lime"],
+  "IT companies":["intel", "amd", "microsoft", "asus", "nvidia", "oracle", "google", "apple", "yandex"],
+  "countries":["japan", "ukraine", "poland", "china", "russia", "germany", "france", "turkey", "iceland"],
+  "JS frameworks":["react", "angular", "vue", "jquery", "ionic", "node", "backbone"],
+  "transport": ["train", "car", "airplane", "ship", "helicopter"],
+  "jobs": ["teacher", "engineer", "housekeeper", "policeman", "fireman", "secretary", "manager", "researcher", "reporter"]
 }

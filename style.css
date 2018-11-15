@@ -43,12 +43,12 @@
     to {opacity: 1}
 }
 
-h1 {
-    font: 4rem Xarrow;
+* {
+    user-select: none;
 }
 
-h3 {
-    font: 3rem Xarrow;
+h1 {
+    font: 4rem Xarrow;
 }
 
 button {
@@ -66,11 +66,8 @@ button:focus {
     text-align: center;
 }
 
-.no-select {
-    user-select: none;
-}
-
 .btn-wrong {
+    font: 5rem Xarrow;
     color: red;
 }
 
@@ -79,12 +76,10 @@ button:focus {
     transform: translateY(-300px);
 }
 
-
 .show-header {
     animation: fly-in 1s;
     transform: translateY(0);
 }
-
 
 .pop-up {
     animation: show-pop-up 1s;
@@ -104,7 +99,6 @@ button:focus {
     transform: translateX(-2500px);
 }
 
-
 .show-game-content {
     animation: fly-in-side 1s;
     transform: translateX(0);
@@ -115,10 +109,8 @@ button:focus {
     transform: translateX(-2500px);
 }
 
-
-
 .btn-primary {
-    font: 3rem Xarrow;
+    font: 5rem Xarrow;
 }
 
 .btn-primary.play {
@@ -126,15 +118,9 @@ button:focus {
     margin: 0 auto;
 }
 
-
-
 .btn-primary:hover {
     color: green;
     cursor: pointer;
-}
-
-.btn-letter {
-    font: 5rem Xarrow;
 }
 
 .keyboard {
@@ -148,29 +134,22 @@ button:focus {
     flex-wrap: wrap;
 }
 
-.row .col-1 {
-    flex-basis: 16.6666667%;
-}
-
-.row .col-2 {
+.row .flex-third {
     flex-basis: 33.3333334%;
 }
 
-.row .col-3 {
+.row .flex-half {
     flex-basis: 50.0000001%;
 }
 
-.row .col-4 {
-    flex-basis: 66.6666668%;
-}
-
-.row .col-5 {
-    flex-basis: 83.3333335%;
-}
-
-.row .col-6 {
+.row .flex-max {
     flex-basis: 100%;
 }
+
+.invisible {
+    opacity: 0;
+}
+
 
 @media screen and (max-width: 575px){
 
@@ -179,22 +158,28 @@ button:focus {
     body {
         margin: 0;
     }
+
     h1{
         font-size: 2rem;
         word-wrap: break-word;
     }
 
-    .col-3, .col-2 {
+    .flex-half, .flex-third {
         flex-basis: 100% !important;
 
     }
 
-    .btn-letter {
-        font-size: 3rem;
+    .btn-primary {
+        font-size: 2.2rem;
     }
 
-    canvas {
+    .btn-wrong {
+        font-size: 2.2rem;
+    }
+
+    svg {
         max-width: 100%;
+        height: 60%;
     }
 
 }

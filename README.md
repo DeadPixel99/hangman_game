@@ -15,6 +15,7 @@
 ######Гра написана з використанням стандарту ECMAScript6
 ######Працездатнiсть гри була перевiрена на:
 * Google Chrome 70
+* Google Chrome Android 70
 * Microsoft Edge 42
 
 ####Додання нових слiв:

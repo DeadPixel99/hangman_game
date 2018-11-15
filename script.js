@@ -110,6 +110,17 @@
         return [rCategory, wordsObj[rCategory][Math.floor(Math.random() * wordsObj[rCategory].length)].toUpperCase().split('')];
     }
 
+    function popUp(msg,endless) {
+        let popUp = d.createElement('h1');
+        popUp.innerText = msg;
+        popUp.classList.add('pop-up');
+        d.body.appendChild(popUp);
+        if(!endless) {
+            setTimeout(()=>{ classReplace(popUp, '', 'hide') }, 5000);
+            setTimeout(()=>{ document.body.removeChild(popUp)}, 6000);
+        }
+    }
+
     const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
                     'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
                     'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -149,18 +160,14 @@
                 textBox.innerText = `Word(${category}): ${userWord.join(' ')}`;
                 wishedWord[index] = '';
                 if(userWord.indexOf('_') == -1) {
-                    inputAllowed = false;
-                    setWord('Congrats. You win this time. Let\'s try again?');
-                    setTimeout(reset, 5000);
+                    reset('Congrats. You win this time. Let\'s try again?');
                 }
             } else {
                 classReplace(letter, 'btn-primary', 'btn-wrong');
                 letter.onclick = null;
                 hangman.invoke();
                 if(hangman.currentStep > 5) {
-                    inputAllowed = false;
-                    setWord('Ups. Looks like you loose. Try again');
-                    setTimeout(reset, 5000);
+                    reset('Ups. Looks like you loose. Try again');
                 }
             }
         }
@@ -173,8 +180,11 @@
             }, 1000);
         }
         
-        function reset() {
+        function reset(infoMsg) {
+            inputAllowed = false;
             classReplace(gameContainer, 'show-game-content', 'hide-game-content');
+            classReplace(textBox, 'show-header', 'hide-header');
+            popUp(infoMsg);
             setTimeout(()=>{
                 let newKeys = getKeyboard(tryLetter);
                 newKeys.classList.add('col-3', 'keyboard');
@@ -183,23 +193,30 @@
                 classReplace(gameContainer, 'hide-game-content', 'show-game-content');
                 guessWord();
                 inputAllowed = true;
-            }, 1000);
+            }, 5000);
         }
     }
 
     const gameCanvas = d.getElementById('canv');
     const hangman = new Hangman(gameCanvas.getContext('2d'));
 
-    let init = setInterval(function () {
+    let init = setInterval(()=>{
         if(hangman.invoke() == 7) {
             clearInterval(init);
-            openJson('./res/words.json').then(data=>{
-                let q = d.querySelector('.canvas-container');
-                q.style.animation = "move-gallows 2s";
-                classReplace(q, 'col-6', 'col-2');
-                setTimeout(()=>{
-                    inGame(JSON.parse(data), hangman)
-                } , 1000) });
+            openJson('./res/words.json')
+                .then(data=>{
+                    setTimeout(()=>{
+                        inGame(JSON.parse(data), hangman)
+                    } , 1000) })
+                .catch(()=>{
+                    setTimeout(()=>{
+                        popUp('Error loading words', true);
+                    } , 1000)
+                }).finally(()=>{
+                    let q = d.querySelector('.canvas-container');
+                    q.style.animation = "move-gallows 2s";
+                    classReplace(q, 'col-6', 'col-2');
+                });
         }
     }, 400);
 

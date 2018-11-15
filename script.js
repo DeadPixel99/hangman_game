@@ -123,7 +123,7 @@
         let hangman = hangmanObj;
         let wishedWord = [];
         let userWord = [];
-
+        let inputAllowed = true;
         let keys = getKeyboard(function (e) {
             tryLetter(e);
         });
@@ -141,19 +141,24 @@
         }
 
         function tryLetter(letter) {
+            if(!inputAllowed)
+                return;
             let index = wishedWord.indexOf(letter.innerText);
             if(index != -1) {
                 userWord[index] = letter.innerText;
                 textBox.innerText = `Word(${category}): ${userWord.join(' ')}`;
                 wishedWord[index] = '';
                 if(userWord.indexOf('_') == -1) {
+                    inputAllowed = false;
                     setWord('Congrats. You win this time. Let\'s try again?');
                     setTimeout(reset, 5000);
                 }
             } else {
                 classReplace(letter, 'btn-primary', 'btn-wrong');
+                letter.onclick = null;
                 hangman.invoke();
                 if(hangman.currentStep > 5) {
+                    inputAllowed = false;
                     setWord('Ups. Looks like you loose. Try again');
                     setTimeout(reset, 5000);
                 }
@@ -171,14 +176,13 @@
         function reset() {
             classReplace(gameContainer, 'show-game-content', 'hide-game-content');
             setTimeout(()=>{
-                let newKeys = getKeyboard(function (e) {
-                    tryLetter(e);
-                });
+                let newKeys = getKeyboard(tryLetter);
                 newKeys.classList.add('col-3', 'keyboard');
                 hangman.clearBody();
                 d.querySelector('.keyboard').replaceWith(newKeys);
                 classReplace(gameContainer, 'hide-game-content', 'show-game-content');
                 guessWord();
+                inputAllowed = true;
             }, 1000);
         }
     }

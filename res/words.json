@@ -1,5 +1,5 @@
 {
   "fruits":["apple", "banana", "pineapple"],
-  "IT brands":["intel", "amd", "microsoft"],
-  "Countries":["japan", "ukraine", "poland", "china"]
+  "IT brands":["intel", "amd", "microsoft", "asus", "nvidia"],
+  "Countries":["japan", "ukraine", "poland", "china", "russia"]
 }

@@ -4,5 +4,9 @@
   "countries":["japan", "ukraine", "poland", "china", "russia", "germany", "france", "turkey", "iceland"],
   "JS frameworks":["react", "angular", "vue", "jquery", "ionic", "node", "backbone"],
   "transport": ["train", "car", "airplane", "ship", "helicopter"],
-  "jobs": ["teacher", "engineer", "housekeeper", "policeman", "fireman", "secretary", "manager", "researcher", "reporter"]
+  "jobs": ["teacher", "engineer", "housekeeper", "policeman", "fireman", "secretary", "manager", "researcher", "reporter"],
+  "animals": ["alligator", "cow", "cat", "camel", "elephant", "lizard", "lion", "monkey", "otter", "crocodile", "bear", "sparrow", "zebra"],
+  "computer": ["disc", "processor", "software", "memory", "database", "modem"],
+  "sports": ["football", "basketball", "cycling", "volleyball", "tennis", "hockey", "swimming"],
+  "seasons":["snowstorm", "rain", "summer", "winter", "spring", "autumn", "frost", "thunderstorm", "bloom"]
 }

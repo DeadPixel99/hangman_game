@@ -16,7 +16,7 @@
                     setTimeout(()=>{ inGame(JSON.parse(data), hangman) } , 1000)
                 })
                 .catch(()=>{
-                    setTimeout(()=>{ popUp('Error loading words', true); } , 1000)
+                    setTimeout(()=>{ popUp('Error loading words. Try to reload page', true); } , 1000)
                 });
         }
     }, 400);
@@ -59,7 +59,7 @@
                 textBox.innerText = `Word(${category}):\n ${userWord.join(' ')}`;
                 lettersToRecognise[index] = '';
                 if(userWord.indexOf('_') == -1) {
-                    reset(`Congrats, you won! Right word is ${wishedWord}, but next time it'll be harder.\n\nScore: ${++gameScore}`);
+                    reset(`${generatePhrase()}\n\nScore: ${++gameScore}`);
                 }
                 tryLetter(letter, true);
             } else {
@@ -67,7 +67,7 @@
                 letter.onclick = null;
                 if(!recursive) {
                     if(hangman.invoke() > 5) {
-                        reset(`Ups. Looks like you loose. Word was ${wishedWord}. Is it really that hard?\n\nScore: ${gameScore}`);
+                        reset(`${generatePhrase(true)}\n\nScore: ${gameScore}`);
                         gameScore = 0;
                     }
                 }
@@ -99,15 +99,43 @@
                 inputAllowed = true;
             }, 5000);
         }
+
+
+        function generatePhrase(isLoose) {
+            switch (true) {
+                case (isLoose && (repeatingSymbols(userWord, '_') == 1)):
+                    return `You were so close. The word is ${wishedWord}`;
+                case (isLoose && (repeatingSymbols(userWord, '_') == wishedWord.length-2)):
+                    return `Is that really so hard?! Not even one character. Wished word is ${wishedWord}`;
+                case (isLoose && (repeatingSymbols(userWord, '_') <= wishedWord.length/2)):
+                    return `Good try, but not enough. The right word is ${wishedWord}. Better luck next time.`;
+                case (isLoose && (repeatingSymbols(userWord, '_') > wishedWord.length/2)):
+                    return `Do you even tried? The right word is ${wishedWord}.`;
+                case (hangman.getCurrentStep() == 0):
+                    return `${wishedWord}, pretty easy, huh? Next word supposed to be harder.`;
+                case (hangman.getCurrentStep() == 5):
+                    return `Ohh, i thought that you'll lose this one. Developers need to replace ${wishedWord} by easier one.`;
+                case (hangman.getCurrentStep() <= 2):
+                    return `Congrats, you won! Right word is ${wishedWord}. Keep up the good work.`;
+                case (hangman.getCurrentStep() > 2):
+                    return `Every one fails some time. At least you guessed that wished word is ${wishedWord}.`;
+                default:
+                    return `Well, that's not supposed to happened. Word is ${wishedWord} if you wanna know.`
+            }
+        }
     }
 
 
     function classReplace(node, was, became) {
-        if(node.classList.contains(was)) {
-            node.classList.remove(was);
-        }
-        if(became) {
-            node.classList.add(became);
+        if(node instanceof Array) {
+            node.forEach(nodeElem=>classReplace(nodeElem, was, became));
+        } else {
+            if(node.classList.contains(was)) {
+                node.classList.remove(was);
+            }
+            if(became) {
+                node.classList.add(became);
+            }
         }
         return node;
     }
@@ -156,50 +184,61 @@
         d.body.appendChild(popUp);
         if(!endless) {
             setTimeout(()=>{ classReplace(popUp, '', 'hide') }, 5000);
-            setTimeout(()=>{ d.body.removeChild(popUp)}, 6000);
+            setTimeout(()=>{ d.body.removeChild(popUp) }, 6000);
         }
     }
 
 
+    function repeatingSymbols(string, symbol) {
+        return string.toString().split(symbol).length-1;
+    }
+
     //drawable prop
     function Hangman() {
-        let gallows = d.querySelector('svg').children;
+        let gallows = d.querySelector('.hangmanBody').children;
         let currentStep = 0;
 
         this.drawHead = function () {
-            classReplace(gallows[1], 'invisible');
+            classReplace(gallows[0], 'invisible');
         };
 
         this.drawBody = function () {
-            classReplace(gallows[2], 'invisible');
+            classReplace(gallows[1], 'invisible');
         };
 
         this.drawHand = function (second) {
             if(second) {
-                classReplace(gallows[4], 'invisible');
-            } else {
                 classReplace(gallows[3], 'invisible');
+            } else {
+                classReplace(gallows[2], 'invisible');
             }
         };
 
         this.drawLeg = function (second) {
             if(second) {
-                classReplace(gallows[6], 'invisible');
-            } else {
                 classReplace(gallows[5], 'invisible');
+            } else {
+                classReplace(gallows[4], 'invisible');
             }
         };
 
         this.clearBody = function () {
             currentStep = 0;
-            for(let i = 1; i < gallows.length; i++) {
-                classReplace(gallows[i], '', 'invisible');
-            }
+            classReplace(Array.from(gallows), '', 'invisible');
+            classReplace([d.querySelector('.hangmanRope'), gallows[0].parentNode], 'shake', '');
+        };
+
+        this.getCurrentStep = function () {
+          return currentStep;
         };
 
         this.invoke = function () {
             switch (currentStep) {
-                case 0: {this.drawHead(); break;}
+                case 0: {
+                    this.drawHead();
+                    classReplace([d.querySelector('.hangmanRope'), gallows[0].parentNode], '', 'shake');
+                    break;
+                }
                 case 1: {this.drawBody(); break;}
                 case 2: {this.drawHand(); break;}
                 case 3: {this.drawHand(true); break;}

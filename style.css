@@ -122,11 +122,6 @@ button:focus {
     font: 5rem Xarrow, Comic Sans MS;
 }
 
-.btn-primary.play {
-    display: block;
-    margin: 0 auto;
-}
-
 .btn-primary:hover {
     color: green;
     cursor: pointer;

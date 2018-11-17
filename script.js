@@ -16,15 +16,17 @@
                     setTimeout(()=>{ inGame(JSON.parse(data), hangman) } , 1000)
                 })
                 .catch(()=>{
-                    setTimeout(()=>{ popUp('Error loading words. Try to reload page', true); } , 1000)
+                    setTimeout(()=>{ popUp('Error loading words. Try to reload page.', true); } , 1000)
                 });
         }
     }, 400);
 
 
     function inGame(wordsData, hangmanObj) {
+
         const textBox = d.querySelector('.game-logo');
         const gameContainer = d.querySelector('.game-container');
+
         let words = wordsData;
         let category = '';
         let wishedWord = '';
@@ -104,9 +106,9 @@
         function generatePhrase(isLoose) {
             switch (true) {
                 case (isLoose && (repeatingSymbols(userWord, '_') == 1)):
-                    return `You were so close. The word is ${wishedWord}`;
+                    return `You were so close. The word is ${wishedWord}.`;
                 case (isLoose && (repeatingSymbols(userWord, '_') == wishedWord.length-2)):
-                    return `Is that really so hard?! Not even one character. Wished word is ${wishedWord}`;
+                    return `Is that really so hard?! Not even one character. The clue is ${wishedWord}.`;
                 case (isLoose && (repeatingSymbols(userWord, '_') <= wishedWord.length/2)):
                     return `Good try, but not enough. The right word is ${wishedWord}. Better luck next time.`;
                 case (isLoose && (repeatingSymbols(userWord, '_') > wishedWord.length/2)):
@@ -114,11 +116,11 @@
                 case (hangman.getCurrentStep() == 0):
                     return `${wishedWord}, pretty easy, huh? Next word supposed to be harder.`;
                 case (hangman.getCurrentStep() == 5):
-                    return `Ohh, i thought that you'll lose this one. Developers need to replace ${wishedWord} by easier one.`;
+                    return `Ohh, i thought that you'll lose this one. Developers should replace ${wishedWord} by easier one.`;
                 case (hangman.getCurrentStep() <= 2):
                     return `Congrats, you won! Right word is ${wishedWord}. Keep up the good work.`;
                 case (hangman.getCurrentStep() > 2):
-                    return `Every one fails some time. At least you guessed that wished word is ${wishedWord}.`;
+                    return `${wishedWord}, pretty hard, isn't it?`;
                 default:
                     return `Well, that's not supposed to happened. Word is ${wishedWord} if you wanna know.`
             }

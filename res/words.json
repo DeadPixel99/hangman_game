@@ -1,12 +1,14 @@
 {
-  "fruits":["apple", "banana", "pineapple", "grapefruit", "lemon", "lime"],
-  "IT companies":["intel", "amd", "microsoft", "asus", "nvidia", "oracle", "google", "apple", "yandex"],
-  "countries":["japan", "ukraine", "poland", "china", "russia", "germany", "france", "turkey", "iceland"],
-  "JS frameworks":["react", "angular", "vue", "jquery", "ionic", "node", "backbone"],
-  "transport": ["train", "car", "airplane", "ship", "helicopter"],
+  "fruits":["apple", "banana", "pineapple", "grapefruit", "lemon", "lime", "papaya", "melon", "raspberry", "mango", "pear", "orange"],
+  "IT companies":["intel", "amd", "microsoft", "asus", "nvidia", "oracle", "google", "apple", "yandex", "samsung", "foxconn", "sony"],
+  "countries":["japan", "ukraine", "poland", "china", "russia", "germany", "france", "turkey", "iceland", "italy", "angola", "finland"],
+  "JS frameworks":["react", "angular", "vue", "jquery", "ionic", "node", "backbone", "ember"],
+  "transport": ["train", "car", "airplane", "ship", "helicopter", "tractor", "zeppelin", "jeep", "hydroplane", "truck", "minivan"],
   "jobs": ["teacher", "engineer", "housekeeper", "policeman", "fireman", "secretary", "manager", "researcher", "reporter"],
   "animals": ["alligator", "cow", "cat", "camel", "elephant", "lizard", "lion", "monkey", "otter", "crocodile", "bear", "sparrow", "zebra"],
-  "computer": ["disc", "processor", "software", "memory", "database", "modem"],
-  "sports": ["football", "basketball", "cycling", "volleyball", "tennis", "hockey", "swimming"],
-  "seasons":["snowstorm", "rain", "summer", "winter", "spring", "autumn", "frost", "thunderstorm", "bloom"]
+  "computer": ["disc", "processor", "software", "memory", "database", "modem", "motherboard", "keyboard", "monitor"],
+  "sports": ["football", "basketball", "cycling", "volleyball", "tennis", "hockey", "swimming", "gymnastics", "golf", "baseball"],
+  "seasons":["snowstorm", "rain", "summer", "winter", "spring", "autumn", "frost", "thunderstorm", "bloom"],
+  "colors":["red", "white", "blue", "yellow", "cyan", "black", "gray", "brown", "pink", "ultramarine", "orange", "green", "violet"],
+  "clothes":["anorak", "shirt", "jacket", "jeans", "poncho", "dress", "jumper", "belt", "sneakers", "sunglasses", "skirt", "suit"]
 }

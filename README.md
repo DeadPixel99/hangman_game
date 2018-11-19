@@ -9,7 +9,9 @@
 
 ### Запуск:
 1) Завантажити усi файли проекту у одну папку
-2) Вiдкрити index.html у сумiсному браузерi
+2) Запустити сервер з даної папки або вікрити index.html у браузері  
+При запуску без серверу слід використовувати Microsoft Edge чи Firefox. Google chrome блокує доступ до файла зі словами через file://  
+ `blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.`
 
 ### Альтернативний запуск:
 Перейти за [посиланням](https://antonnnnn13.gitlab.io/hangman/) на gitlab pages

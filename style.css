@@ -61,6 +61,11 @@ h1 {
     font: 4rem Xarrow, Comic Sans MS;
 }
 
+svg {
+    display: block;
+    margin: 0 auto;
+}
+
 button {
     border: none;
     background: none;
